@@ -1,4 +1,30 @@
-nav,
-aside {
-  border: 1px solid black;
+/* geral */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+body {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  height: 100vh;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  margin: 3px 0 3px 0;
+}
+
+/* geral end */
+
+/* nav(sidebar) */
+nav div {
+  margin: 10px 0 10px 0;
+}
+nav {
+  background-color: #fefce8;
+  padding-left: 10px;
+}
+
+/*  */
