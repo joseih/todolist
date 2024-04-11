@@ -26,7 +26,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
-      tittle: "Restaurant",
+      tittle: "TodoList",
       filename: "index.html",
       inject: "head",
       scriptLoading: "defer",

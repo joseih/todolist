@@ -1,5 +1,10 @@
 /* geral */
+@font-face {
+  font-family: Roboto;
+  src: url(../public/font/Roboto-Regular.woff2);
+}
 * {
+  font-family: Roboto;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -26,5 +31,54 @@ nav {
   background-color: #fefce8;
   padding-left: 10px;
 }
+.active {
+  cursor: pointer;
+}
+.active:hover {
+  background-color: #fde68a;
+  border-radius: 5px;
+}
+li.active {
+  margin: 20px 0 20px 0;
+}
 
 /*  */
+
+/* task form */
+#container-task-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  width: 250px;
+  height: fit-content;
+  border-radius: 5px;
+}
+#container-task-form input {
+  border: 0px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+input:focus {
+  outline: none;
+}
+
+#task-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+#task-form:first-child div {
+  grid-column-start: 1;
+  grid-column-end: -1;
+}
+#task-form div:last-child {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+
+/* task form end */
