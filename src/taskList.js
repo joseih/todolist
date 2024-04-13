@@ -1,5 +1,5 @@
 import TaskDomManipulator from "./Taskdom";
-import taskItemFactory from "./taskInstance";
+import taskItemFactory from "./taskItem";
 
 export default class TaskList {
   constructor() {

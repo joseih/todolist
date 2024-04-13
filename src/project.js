@@ -1,18 +1,14 @@
-import DomManipulator from "./domManipulator";
-import todoItemFactory from "./todoInstance";
+import ProjectDomManipulator from "./projectDom";
+import TaskList from "./taskList";
 
 export default class Project {
-  constructor(title, description, dueDate, priority, status) {
-    this.title = title;
+  constructor(tittle, description, dueDate, priority) {
+    this.tittle = tittle;
     this.description = description;
     this.dueDate = dueDate;
     this.priority = priority;
-    this.status = status;
-    this.todoList = [];
-    this.dom = new DomManipulator();
-  }
-  addTodoinProject() {
-    
-    this.todoList.push(todoItemFactory("A", "B", "C", "D", ""));
+    this.status = false;
+    this.taskList = new TaskList();
+    this.dom = new ProjectDomManipulator(this);
   }
 }

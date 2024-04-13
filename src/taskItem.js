@@ -1,6 +1,4 @@
-import DomManipulator from "./Taskdom";
-
-class TodoItem {
+class TaskItem {
   constructor(tittle, description, dueDate, priority) {
     this.tittle = tittle;
     this.description = description;
@@ -16,5 +14,5 @@ export default function taskItemFactory(
   dueDate,
   priority
 ) {
-  return new TodoItem(tittle, description, dueDate, priority);
+  return new TaskItem(tittle, description, dueDate, priority);
 }

@@ -1,4 +1,4 @@
+import Project from "./project";
 import "./style.css";
-import TaskList from "./taskList";
 
-const a = new TaskList();
+const a = new Project();
