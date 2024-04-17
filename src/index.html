@@ -17,7 +17,7 @@
       </div>
       <div>
         <ul>
-          <li class="active" id="add">
+          <li class="active" id="addTask">
             <img src="../public/imgs/icons/plus-circle.svg" alt="plus-sign" />
             <span>Add Task</span>
           </li>
@@ -27,13 +27,9 @@
           </li>
         </ul>
       </div>
-      <div id="projects">
-        <div>
-          ~ Projects
-          <ul>
-            <li>#Teste</li>
-          </ul>
-        </div>
+      <div id="projects-container">
+        <span>Projects</span>
+        <ul id="project-list"></ul>
       </div>
     </nav>
     <aside id="container">
@@ -59,7 +55,18 @@
             ></textarea>
           </div>
           <div>
-            <input type="submit" value="Add Task" />
+            <input type="submit" id="add-task" value="Add Task" />
+          </div>
+        </form>
+      </div>
+
+      <div id="container-project-form" style="display: none">
+        <form id="project-form" action="">
+          <div>
+            <input type="text" name="title" placeholder="Tittle" />
+          </div>
+          <div>
+            <input type="submit" id="add-project" value="Add Project" />
           </div>
         </form>
       </div>

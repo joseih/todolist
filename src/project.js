@@ -1,14 +1,19 @@
-import ProjectDomManipulator from "./projectDom";
-import TaskList from "./taskList";
-
 export default class Project {
-  constructor(tittle, description, dueDate, priority) {
-    this.tittle = tittle;
-    this.description = description;
-    this.dueDate = dueDate;
-    this.priority = priority;
-    this.status = false;
-    this.taskList = new TaskList();
-    this.dom = new ProjectDomManipulator(this);
+  constructor(name, id) {
+    this.name = name;
+    this.id = id;
+    this.tasks = [];
+  }
+  addTask(task) {
+    this.tasks.push(task);
+  }
+  removeTask(task) {
+    this.tasks.splice(this.tasks.indexOf(task), 1);
+  }
+  alterTask(task) {
+    this.tasks[this.tasks.indexOf(task)].alterStatus();
+  }
+  returnTasks() {
+    return this.tasks;
   }
 }

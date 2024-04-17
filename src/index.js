@@ -1,4 +1,6 @@
-import Project from "./project";
 import "./style.css";
+import Dom from "./dom";
+import Task from "./task";
+import ProjectList from "./projectList";
 
-const a = new Project();
+let a = new ProjectList();

@@ -30,10 +30,14 @@ nav {
   background-color: #fefce8;
   padding-left: 10px;
 }
-.active {
+.active,
+.project,
+.selected {
   cursor: pointer;
 }
-.active:hover {
+.active:hover,
+.project:hover,
+.selected:hover {
   background-color: #fde68a;
   border-radius: 5px;
 }
@@ -41,10 +45,14 @@ li.active {
   margin: 20px 0 20px 0;
 }
 
+.selected {
+  background-color: #fde68a;
+}
 /*  nav(sidebar) end*/
 
 /* task form */
-#container-task-form {
+#container-task-form,
+#container-project-form {
   float: right;
   position: absolute;
   top: 50%;
@@ -55,7 +63,8 @@ li.active {
   height: fit-content;
   border-radius: 5px;
 }
-#container-task-form input {
+#container-task-form input,
+#container-project-form input {
   border: 0px;
   height: 30px;
   border-radius: 5px;
@@ -65,7 +74,8 @@ input:focus {
   outline: none;
 }
 
-#task-form {
+#task-form,
+#project-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
@@ -82,6 +92,11 @@ input:focus {
 }
 
 /* task form end */
+
+/* Project list */
+.project:onclick {
+}
+/* Project list end */
 
 /* container */
 
