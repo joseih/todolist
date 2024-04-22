@@ -15,6 +15,18 @@
           </li>
         </ul>
       </div>
+
+      <div id="projects-container">
+        <ul>
+          <li>
+            <img src="../public/imgs/icons/calendar.svg" alt="" srcset="" />
+            <span>Projects</span>
+          </li>
+        </ul>
+        <ul id="project-list">
+        
+        </ul>
+      </div>
       <div>
         <ul>
           <li class="active" id="addTask">
@@ -27,12 +39,18 @@
           </li>
         </ul>
       </div>
-      <div id="projects-container">
-        <span>Projects</span>
-        <ul id="project-list"></ul>
-      </div>
     </nav>
     <aside id="container">
+      <div id="container-project-form" style="display: none">
+        <form id="project-form" action="">
+          <div>
+            <input type="text" name="title" placeholder="Tittle" />
+          </div>
+          <div>
+            <input type="submit" id="add-project" value="Add Project" />
+          </div>
+        </form>
+      </div>
       <div id="container-task-form" style="display: none">
         <form id="task-form" action="">
           <div>
@@ -41,9 +59,9 @@
           <div>
             <input type="date" name="duedate" id="duedate" />
             <select name="priority" id="priority">
-              <option value="1">High</option>
-              <option value="2">Medium</option>
-              <option value="3">Low</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
             </select>
           </div>
           <div>
@@ -56,17 +74,6 @@
           </div>
           <div>
             <input type="submit" id="add-task" value="Add Task" />
-          </div>
-        </form>
-      </div>
-
-      <div id="container-project-form" style="display: none">
-        <form id="project-form" action="">
-          <div>
-            <input type="text" name="title" placeholder="Tittle" />
-          </div>
-          <div>
-            <input type="submit" id="add-project" value="Add Project" />
           </div>
         </form>
       </div>

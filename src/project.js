@@ -1,3 +1,5 @@
+import { LogicDom } from "./dom";
+
 export default class Project {
   constructor(name, id) {
     this.name = name;
@@ -7,7 +9,7 @@ export default class Project {
   addTask(task) {
     this.tasks.push(task);
   }
-  removeTask(task) {
+  remove(task) {
     this.tasks.splice(this.tasks.indexOf(task), 1);
   }
   alterTask(task) {

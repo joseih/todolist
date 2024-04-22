@@ -3,6 +3,10 @@
   font-family: Roboto;
   src: url(../public/font/Roboto-Regular.woff2);
 }
+:root {
+  --corPrincipal: #f0f9ff;
+  --corSecundaria: #38bdf8;
+}
 * {
   font-family: Roboto;
   margin: 0;
@@ -27,18 +31,22 @@ nav div {
   margin: 10px 0 10px 0;
 }
 nav {
-  background-color: #fefce8;
+  background-color: var(--corPrincipal);
   padding-left: 10px;
+  height: 100vh;
 }
 .active,
 .project,
-.selected {
+.selected,
+.task input {
   cursor: pointer;
 }
 .active:hover,
 .project:hover,
-.selected:hover {
-  background-color: #fde68a;
+.selected:hover,
+.task input:hover {
+  background-color: var(--corSecundaria);
+  color: white;
   border-radius: 5px;
 }
 li.active {
@@ -46,8 +54,15 @@ li.active {
 }
 
 .selected {
-  background-color: #fde68a;
+  background-color: var(--corSecundaria);
+  color: white;
 }
+
+#project-list li {
+  margin: 3px 0 10px 20px;
+  padding: 10px;
+}
+
 /*  nav(sidebar) end*/
 
 /* task form */
@@ -93,24 +108,45 @@ input:focus {
 
 /* task form end */
 
-/* Project list */
-.project:onclick {
-}
-/* Project list end */
-
 /* container */
 
 #container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-auto-rows: 100px;
+  grid-auto-rows: 1fr;
   grid-gap: 10px;
   padding: 10px;
 }
 
 .task {
-  border: 1px solid black;
+  border: 1px solid rgb(26, 24, 39);
+  padding: 10px;
   border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 250px;
+  gap: 10px;
 }
-
+.task * {
+  word-wrap: break-word;
+}
+.task input {
+  border: 0px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: var(--corPrincipal);
+}
+.incourse,
+.finished {
+  text-align: center;
+  border-radius: 5px;
+  height: 6px;
+}
+.finished {
+  background-color: rgb(128, 255, 0);
+}
+.incourse {
+  background-color: rgb(253, 177, 149);
+}
 /* container end */

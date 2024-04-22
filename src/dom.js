@@ -3,140 +3,136 @@ import Task from "./task";
 
 export default class Dom {
   constructor(projectList) {
-    this.logic = new LogicDom();
-    this.process = new ProcessDom(projectList);
+    this.addsBtnLogic();
+    this.addsSubmitLogic(projectList);
+    this.addDefaultProject(projectList);
   }
-}
-
-export class LogicDom {
-  constructor() {
-    this.addTaskBtn();
-    this.addProjectBtn();
-  }
-  addTaskBtn() {
-    let addTaskBtn = document.getElementById("addTask");
-    let containerTaskForm = document.getElementById("container-task-form");
-    addTaskBtn.addEventListener("click", () => {
-      if (containerTaskForm.style.display === "block") {
-        containerTaskForm.style.display = "none";
-      } else {
-        containerTaskForm.style.display = "block";
-      }
-    });
-  }
-  addProjectBtn() {
-    let addProjectBtn = document.getElementById("addProject");
+  addsBtnLogic() {
+    let projectAddBtn = document.getElementById("addProject");
     let containerProjectForm = document.getElementById(
       "container-project-form"
     );
-    addProjectBtn.addEventListener("click", () => {
-      if (containerProjectForm.style.display === "block") {
-        containerProjectForm.style.display = "none";
-      } else {
-        containerProjectForm.style.display = "block";
-      }
-    });
+    clickAddShowForm(projectAddBtn, containerProjectForm);
+    let taskAddBtn = document.getElementById("addTask");
+    let containerTaskForm = document.getElementById("container-task-form");
+    clickAddShowForm(taskAddBtn, containerTaskForm);
   }
-  static selectProject() {
-    let projects = document.getElementById("project-list");
-    for (const child of projects.children) {
-      child.onclick = () => {
-        child.className = "selected";
-        projects.childNodes.forEach((x) => {
-          if (x == child) {
-            child.className = "selected";
-          } else {
-            child.className = "project";
-          }
-        });
-      };
+  addsSubmitLogic(projectList) {
+    clickSubmit("add-task", projectList);
+    clickSubmit("add-project", projectList);
+  }
+  addDefaultProject(projectList) {
+    let project = new Project("Default", "0");
+    projectList.addProject(project);
+    addProjectInScreen(project);
+  }
+}
+
+//Functions
+function alterStatusObj(object, dom, objdom) {
+  dom.addEventListener("click", () => {
+    object.alterStatus();
+    if (object.status) {
+      objdom.querySelector(".incourse").className = "finished";
+    } else {
+      objdom.querySelector(".finished").className = "incourse";
     }
-  }
-  static addTaskInScreen(title, duedate, priority, description) {
-    let container = document.getElementById("container");
-    let task = document.createElement("div");
-    task.classList.add("task");
-    task.innerHTML = `
-    <h3>${title}</h3>
-    <p>${duedate}</p>
-    <p>${priority}</p>
-    <p>${description}</p>
-    <input type="submit" value="Concluir" />
-    `;
-    container.appendChild(task);
-  }
-  static addProjectInScreen(projectObj) {
-    let projectList = document.getElementById("project-list");
-    let projectLi = document.createElement("li");
-    projectLi.className = "project";
-    projectLi.id = projectObj.id;
-    projectLi.innerHTML = `<span>${projectObj.name}</span>`;
-    projectList.appendChild(projectLi);
-    projectLi.onclick = () => {
-      projectList.childNodes.forEach((x) => {
-        if (x == projectLi) {
-          x.className = "selected";
-          wipeContainer();
-          let tasks = projectObj.returnTasks();
-          tasks.forEach((task) => {
-            LogicDom.addTaskInScreen(
-              task.title,
-              task.duedate,
-              task.priority,
-              task.description
-            );
-          });
-        } else {
-          x.className = "project";
-        }
-      });
-    };
-  }
+  });
 }
-class ProcessDom {
-  constructor(projectList) {
-    this.addTask(projectList);
-    this.addProject(projectList);
-  }
-  addTask(projectList) {
-    let submit = document.getElementById("add-task");
-    submit.addEventListener("click", (event) => {
-      event.preventDefault();
-      let title = document.getElementsByName("title")[0].value;
-      let duedate = document.getElementsByName("duedate")[0].value;
-      let priority = document.getElementsByName("priority")[0].value;
-      let description = document.getElementsByName("description")[0].value;
+function deleteObj(object, dom, objectList, objdom) {
+  dom.addEventListener("click", () => {
+    objectList.remove(object);
+    objdom.remove();
+  });
+}
+//Make forms show up
+function clickAddShowForm(addBtn, form) {
+  addBtn.addEventListener("click", () => {
+    if (form.style.display === "block") {
+      form.style.display = "none";
+    } else {
+      form.style.display = "block";
+    }
+  });
+}
 
-      try {
-        let test = projectNotSelected(document.querySelector(".selected"));
-        let id = test.id;
-        let projectSelected = projectList.findProject(id);
-        projectSelected.addTask(
-          new Task(title, duedate, priority, description)
-        );
-      } catch (e) {
-        console.error(e);
+function addTaskInScreen(taskObj,projectObj) {
+  let container = document.getElementById("container");
+  let task = document.createElement("div");
+  task.classList.add("task");
+  task.innerHTML = `
+  <h3>${taskObj.title}</h3>
+  <p class="duedate">Due Date: ${taskObj.duedate}</p>
+  <p class="priority">${taskObj.priority}</p>
+  <p class="description">${taskObj.description}</p>
+  <input type="submit" value="Finish" name="finish-task" />
+  <input type="button" value="Delete" name="delete-task" />
+  <div class="incourse"></div>
+  `;
+  if (taskObj.status) {
+    task.querySelector(".incourse").className = "finished";
+  }
+  let finishTask = task.querySelector("input[type='submit']");
+  let deleteTask = task.querySelector("input[type='button']");
+  alterStatusObj(taskObj, finishTask, task);
+  deleteObj(taskObj, deleteTask, projectObj, task);
+  container.appendChild(task);
+}
+function addProjectInScreen(projectObj) {
+  let projectList = document.getElementById("project-list");
+  let projectLi = document.createElement("li");
+  projectLi.id = projectObj.id;
+  projectLi.classList.add("project");
+  projectLi.innerHTML = `<span>${projectObj.name}</span>`;
+  projectList.appendChild(projectLi);
+  projectLi.onclick = () => {
+    projectList.childNodes.forEach((x) => {
+      if (x == projectLi) {
+        x.className = "selected";
+        wipeContainer();
+        let tasks = projectObj.returnTasks();
+        tasks.forEach((task) => {
+          addTaskInScreen(task, projectObj);
+        });
+      } else {
+        x.className = "project";
       }
     });
-  }
-
-  addProject(projectList) {
-    let submit = document.getElementById("add-project");
-    submit.addEventListener("click", (event) => {
-      event.preventDefault();
-      let title = document.getElementsByName("title")[1].value;
-      let id = Date.now();
-      let project = new Project(title, id);
-      projectList.addProject(project);
-    });
-  }
+  };
 }
 
-function projectNotSelected(selectedProject) {
-  if (selectedProject == undefined) {
-    throw new Error("Projeto Não Selecionado");
+function clickSubmit(submitDom, projectList) {
+  let submit = document.getElementById(submitDom);
+  submit.addEventListener("click", (event) => {
+    event.preventDefault();
+    switch (submitDom) {
+      case "add-task":
+        let title = document.getElementsByName("title")[1].value;
+        let duedate = document.getElementsByName("duedate")[0].value;
+        let priority = document.getElementsByName("priority")[0].value;
+        let description = document.getElementsByName("description")[0].value;
+        let task = new Task(title, duedate, priority, description);
+        let selectedProject = projectList.find(returnIdOfSelected());
+        selectedProject.addTask(task);
+        addTaskInScreen(task, selectedProject);
+        break;
+      case "add-project":
+        let name = document.getElementsByName("title")[0].value;
+        let id = Math.random().toString(36).substring(7);
+        let project = new Project(name, id);
+        projectList.addProject(project);
+        addProjectInScreen(project);
+        break;
+    }
+  });
+}
+
+function returnIdOfSelected() {
+  let projectListDom = document.getElementById("project-list");
+  let selectedProject = projectListDom.querySelector(".selected");
+  if (selectedProject.id != null) {
+    return selectedProject.id;
   }
-  return selectedProject;
 }
 function wipeContainer() {
   let container = document.querySelectorAll("#container .task");
