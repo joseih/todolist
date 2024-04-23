@@ -1,6 +1,4 @@
 import Dom, { LogicDom } from "./dom";
-import Project from "./project";
-let cont = 0;
 export default class ProjectList {
   constructor() {
     this.projects = [];

@@ -16,6 +16,7 @@
 body {
   display: grid;
   grid-template-columns: 1fr 3fr;
+  height: 100vh;
 }
 
 li {
@@ -31,9 +32,9 @@ nav div {
   margin: 10px 0 10px 0;
 }
 nav {
+  grid-row: 0/-1;
   background-color: var(--corPrincipal);
   padding-left: 10px;
-  height: 100vh;
 }
 .active,
 .project,
@@ -125,7 +126,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 250px;
+  height: fit-content;
   gap: 10px;
 }
 .task * {
@@ -137,16 +138,26 @@ input:focus {
   border-radius: 5px;
   background-color: var(--corPrincipal);
 }
+.priority,
 .incourse,
 .finished {
   text-align: center;
   border-radius: 5px;
-  height: 6px;
+  height: 10px;
 }
+
 .finished {
-  background-color: rgb(128, 255, 0);
+  background-color: rgb(174, 238, 110);
 }
 .incourse {
   background-color: rgb(253, 177, 149);
+}
+
+.edit {
+  display: flex;
+  justify-content: end;
+}
+.edit img {
+  cursor: pointer;
 }
 /* container end */

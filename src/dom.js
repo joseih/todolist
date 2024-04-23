@@ -34,6 +34,7 @@ function alterStatusObj(object, dom, objdom) {
     object.alterStatus();
     if (object.status) {
       objdom.querySelector(".incourse").className = "finished";
+      objdom.style = "border:2px solid rgb(174, 238, 110);";
     } else {
       objdom.querySelector(".finished").className = "incourse";
     }
@@ -45,7 +46,27 @@ function deleteObj(object, dom, objectList, objdom) {
     objdom.remove();
   });
 }
-//Make forms show up
+function editTaskInScreen(editbtn, taskObj) {
+  editbtn.addEventListener("click", () => {
+    
+  });
+}
+
+
+function givePriorityColor(status, dom) {
+  switch (status) {
+    case "High":
+      dom.style = "border:2px solid red";
+      break;
+    case "Medium":
+      dom.style = "border:2px solid darkorange";
+      break;
+    case "Low":
+      dom.style = "border:2px solid yellowgreen";
+      break;
+  }
+}
+
 function clickAddShowForm(addBtn, form) {
   addBtn.addEventListener("click", () => {
     if (form.style.display === "block") {
@@ -56,14 +77,15 @@ function clickAddShowForm(addBtn, form) {
   });
 }
 
-function addTaskInScreen(taskObj,projectObj) {
+function addTaskInScreen(taskObj, projectObj) {
   let container = document.getElementById("container");
   let task = document.createElement("div");
   task.classList.add("task");
   task.innerHTML = `
-  <h3>${taskObj.title}</h3>
-  <p class="duedate">Due Date: ${taskObj.duedate}</p>
+  <div class="edit"><img src="../public/imgs/icons/magnify.svg"></img></div>
   <p class="priority">${taskObj.priority}</p>
+  <h3>${taskObj.title}</h3>
+  <p class="duedate">${taskObj.duedate}</p>
   <p class="description">${taskObj.description}</p>
   <input type="submit" value="Finish" name="finish-task" />
   <input type="button" value="Delete" name="delete-task" />
@@ -71,9 +93,13 @@ function addTaskInScreen(taskObj,projectObj) {
   `;
   if (taskObj.status) {
     task.querySelector(".incourse").className = "finished";
+    task.style = "border:2px solid rgb(174, 238, 110);";
+  } else {
+    givePriorityColor(taskObj.priority, task);
   }
   let finishTask = task.querySelector("input[type='submit']");
   let deleteTask = task.querySelector("input[type='button']");
+
   alterStatusObj(taskObj, finishTask, task);
   deleteObj(taskObj, deleteTask, projectObj, task);
   container.appendChild(task);
